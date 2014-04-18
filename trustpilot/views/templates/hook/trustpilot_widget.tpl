@@ -27,8 +27,8 @@
 {if $widget1!=false}
 	<div id="truspilot_widget1" class="truspilot_widget block {$position}">
 		<div class="block_content">
-			<div class="tp_-_box" data-tp-settings="domainId:{$tp_wg1_id_domaine}">
-				<a href="http://{$tp_wg1_site_url}/review/{$tp_wg1_domaine}" rel="nofollow" hidden>{$tp_wg1_site_name} Avis</a>
+			<div class="tp_-_box" data-tp-settings="{$tp_wg1_id_domaine}">
+				<a href="{$tp_wg1_site_fullurl}" rel="nofollow" hidden>{$tp_wg1_site_name}</a>
 			</div>
 			{literal}<script type="text/javascript">
 				(function () { var a = "https:" == document.location.protocol ? "https://ssl.trustpilot.com" : "http://s.trustpilot.com", b = document.createElement("script"); b.type = "text/javascript"; b.async = true; b.src = a + "/tpelements/tp_elements_all.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c) })();
@@ -40,8 +40,8 @@
 {if $widget2!=false}
 	<div id="truspilot_widget2" class="truspilot_widget block {$position}">
 		<div class="block_content">
-			<div class="tp_-_box" data-tp-settings="domainId:{$tp_wg2_id_domaine}">
-				<a href="http://{$tp_wg2_site_url}/review/{$tp_wg2_domaine}" rel="nofollow" hidden>{$tp_wg2_site_name} Avis</a>
+			<div class="tp_-_box" data-tp-settings="{$tp_wg2_id_domaine}">
+				<a href="{$tp_wg2_site_fullurl}" rel="nofollow" hidden>{$tp_wg2_site_name}</a>
 			</div>
 			{literal}<script type="text/javascript">
 				(function () { var a = "https:" == document.location.protocol ? "https://ssl.trustpilot.com" : "http://s.trustpilot.com", b = document.createElement("script"); b.type = "text/javascript"; b.async = true; b.src = a + "/tpelements/tp_elements_all.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c) })();

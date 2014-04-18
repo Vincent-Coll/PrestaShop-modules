@@ -34,7 +34,7 @@ class TrustPilot extends Module
 	{
 		$this->name = 'trustpilot';
 		$this->tab = 'advertising_marketing';
-		$this->version = '1.0';
+		$this->version = '1.3';
 		$this->author = 'Profileo Labs';
 		$this->need_instance = 0;
 		$this->module_key = '';
@@ -405,8 +405,7 @@ class TrustPilot extends Module
 			// Initializing variables
 			$widget1 = false;
 			$tp_wg1_id_domaine = '';
-			$tp_wg1_site_url = '';
-			$tp_wg1_domaine = '';
+			$tp_wg1_site_fullurl = '';
 			$tp_wg1_site_name = '';
 			
 			$exploded_str1 = explode('"', $tmp_tp_widget1);
@@ -424,39 +423,33 @@ class TrustPilot extends Module
 			
 			if ($proceed_extraction1) 
 			{
-				$segment_1 = $exploded_str1[3]; // [3] => domainId:5349800
-				$segment_2 = $exploded_str1[5]; // [5] => http://www.trustpilot.fr/review/tolstrupbech.com
-				$segment_3 = $exploded_str1[8]; // [8] =>  hidden>Tolstrupbech Avis</a>...
+                            $segment_1 = $exploded_str1[3]; // [3] => domainId:5349800,etc:xxx,etc:xxx,etc:xxx
+                            $segment_2 = $exploded_str1[5]; // [5] => http://www.trustpilot.fr/review/tolstrupbech.com
+                            $segment_3 = $exploded_str1[8]; // [8] =>  hidden>Tolstrupbech Avis</a>...
+
+                            // Retrieving ID Domaine
+                            $tp_wg1_id_domaine = $segment_1;
+
+                            // Retrieving Site URL & domain name
+                            $tp_wg1_site_fullurl = $segment_2;
+
+                            // Retrieving site name
+                            $exploded_str1_3 = explode('>', $segment_3);
+                            $exploded_str1_4 = explode('<', $exploded_str1_3[1]);
+                            $tp_wg1_site_name = $exploded_str1_4[0];
+
+                            if (!empty($tp_wg1_id_domaine) &&
+                                !empty($tp_wg1_site_fullurl) &&
+                                !empty($tp_wg1_site_name) )
+                                $widget1 = true;
 				
-				// Retrieving ID Domaine
-				$exploded_str1_1 = explode(':', $segment_1);
-				$tp_wg1_id_domaine = (int)$exploded_str1_1[1];
-				
-				// Retrieving Site URL & domain name
-				$exploded_str1_2 = explode('/', $segment_2);
-				$tp_wg1_site_url = $exploded_str1_2[2];
-				$tp_wg1_domaine = $exploded_str1_2[4];
-				
-				// Retrieving site name
-				$exploded_str1_3 = explode('>', $segment_3);
-				$exploded_str1_4 = explode('<', $exploded_str1_3[1]);
-				$tp_wg1_site_name = $exploded_str1_4[0];
-				
-				if (!empty($tp_wg1_id_domaine) &&
-						!empty($tp_wg1_site_url) &&
-						!empty($tp_wg1_domaine) &&
-						!empty($tp_wg1_site_name) )
-					$widget1 = true;
-				
-				
+			    
 			} 
 
 			$this->context->smarty->assign('widget1', $widget1);
 			$this->context->smarty->assign('tp_wg1_id_domaine', $tp_wg1_id_domaine);
-			$this->context->smarty->assign('tp_wg1_site_url', $tp_wg1_site_url);
-			$this->context->smarty->assign('tp_wg1_domaine', $tp_wg1_domaine);
+			$this->context->smarty->assign('tp_wg1_site_fullurl', $tp_wg1_site_fullurl);
 			$this->context->smarty->assign('tp_wg1_site_name', $tp_wg1_site_name);
-			
 		}
                 
 		if ($widget2 && $this->isHooked(2, $hook)) 
@@ -466,8 +459,7 @@ class TrustPilot extends Module
 			// Initializing variables
 			$widget2 = false;
 			$tp_wg2_id_domaine = '';
-			$tp_wg2_site_url = '';
-			$tp_wg2_domaine = '';
+			$tp_wg2_site_fullurl = '';
 			$tp_wg2_site_name = '';
 			
 			$exploded_str2 = explode('"', $tmp_tp_widget2);
@@ -485,36 +477,31 @@ class TrustPilot extends Module
 			
 			if ($proceed_extraction2) 
 			{
-				$segment_1 = $exploded_str2[3]; // [3] => domainId:5349800
-				$segment_2 = $exploded_str2[5]; // [5] => http://www.trustpilot.fr/review/tolstrupbech.com
-				$segment_3 = $exploded_str2[8]; // [8] =>  hidden>Tolstrupbech Avis</a>...
+                            $segment_1 = $exploded_str2[3]; // [3] => domainId:5349800
+                            $segment_2 = $exploded_str2[5]; // [5] => http://www.trustpilot.fr/review/tolstrupbech.com
+                            $segment_3 = $exploded_str2[8]; // [8] =>  hidden>Tolstrupbech Avis</a>...
+
+                            // Retrieving ID Domaine
+                            $tp_wg2_id_domaine = $segment_1;
+
+                            // Retrieving Site URL & domain name
+                            $tp_wg2_site_fullurl = $segment_2;
 				
-				// Retrieving ID Domaine
-				$exploded_str2_1 = explode(':', $segment_1);
-				$tp_wg2_id_domaine = (int)$exploded_str2_1[1];
-				
-				// Retrieving Site URL & domain name
-				$exploded_str2_2 = explode('/', $segment_2);
-				$tp_wg2_site_url = $exploded_str2_2[2];
-				$tp_wg2_domaine = $exploded_str2_2[4];
-				
-				// Retrieving site name
-				$exploded_str2_3 = explode('>', $segment_3);
-				$exploded_str2_4 = explode('<', $exploded_str2_3[1]);
-				$tp_wg2_site_name = $exploded_str2_4[0];
-				
-				
-				if (!empty($tp_wg2_id_domaine) &&
-						!empty($tp_wg2_site_url) &&
-						!empty($tp_wg2_domaine) &&
-						!empty($tp_wg2_site_name) )
-					$widget2 = true;
+                            // Retrieving site name
+                            $exploded_str2_3 = explode('>', $segment_3);
+                            $exploded_str2_4 = explode('<', $exploded_str2_3[1]);
+                            $tp_wg2_site_name = $exploded_str2_4[0];
+
+
+                            if (!empty($tp_wg2_id_domaine) &&
+                                !empty($tp_wg2_site_fullurl) &&
+                                !empty($tp_wg2_site_name) )
+                                $widget2 = true;
 			}
 
 			$this->context->smarty->assign('widget2', $widget2);
 			$this->context->smarty->assign('tp_wg2_id_domaine', $tp_wg2_id_domaine);
-			$this->context->smarty->assign('tp_wg2_site_url', $tp_wg2_site_url);
-			$this->context->smarty->assign('tp_wg2_domaine', $tp_wg2_domaine);
+			$this->context->smarty->assign('tp_wg2_site_fullurl', $tp_wg2_site_fullurl);
 			$this->context->smarty->assign('tp_wg2_site_name', $tp_wg2_site_name);
 		}
 
